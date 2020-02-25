@@ -1,5 +1,6 @@
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.http.util.Asserts;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -7,21 +8,25 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Selenium {
     static WebDriver BrowserDriver;
+    static String oldAddUserButtonXpath = "//p[@class='text-right pt-3']//button[@class='link-button']";
 
 
 
     public static void main(String[] args){
 
         System.out.println("Selenium");
+
     }
 
     static public void setupChrome(){
-        //System.setProperty("webdriver.chrome.driver","drivers\\chromedriver.exe");
+       // System.setProperty("webdriver.chrome.driver","drivers\\chromedriver.exe");
         WebDriverManager.chromedriver().setup();
         BrowserDriver = new ChromeDriver();
         BrowserDriver.get("http://developdashboard.azurewebsites.net/login");
@@ -31,6 +36,7 @@ public class Selenium {
             WebDriverManager.firefoxdriver().setup();
             BrowserDriver = new FirefoxDriver();
             BrowserDriver.get("http://developdashboard.azurewebsites.net/login");
+           // BrowserDriver.get("http://dashboardfront.azurewebsites.net/login");
     }
 
 
@@ -83,20 +89,21 @@ public class Selenium {
         logoutButton.click();
     }
 
+
     static public void AddNewUser(String email, String name, String surname, String password, String repeatPassword){
         //Click burger
         waitForElementByClassName("menuIcon");
         WebElement burgerMenu = BrowserDriver.findElement(By.className("menuIcon"));
         burgerMenu.click();
+
         //Click users
         waitForElementByXpath("//a[@href='/users']//button[@class=\"buttonDesign\"]");
         WebElement users = BrowserDriver.findElement(By.xpath("//a[@href='/users']//button[@class=\"buttonDesign\"]"));
         users.click();
 
         //Click add new user
-        //Click add new user
-        waitForElementByXpath("//p[@class='text-right pt-3']//button[@class='link-button']");
-        WebElement addUserButton = BrowserDriver.findElement((By.xpath("//p[@class='text-right pt-3']//button[@class='link-button']")));
+        waitForElementByXpath("//div[@class='addButton text-right']/button[text() = 'Add new user']");
+        WebElement addUserButton = BrowserDriver.findElement((By.xpath("//div[@class='addButton text-right']/button[text() = 'Add new user']")));
         addUserButton.click();
 
         //Enter email
@@ -146,14 +153,46 @@ public class Selenium {
         WebElement users = BrowserDriver.findElement(By.xpath("//a[@href='/users']//button[@class=\"buttonDesign\"]"));
         users.click();
         //Click delete
-        waitForElementByXpath("//tr[td[text() = 'UserDeleteThis@mail.com']]/td/button[text() = 'delete']");
-        WebElement deleteUser = BrowserDriver.findElement(By.xpath("//tr[td[text() = 'UserDeleteThis@mail.com']]/td/button[text() = 'delete']"));
+        waitForElementByXpath("//tr[td[div[text() = 'UserDeleteThis@mail.com']]]/td/button[text() = 'delete']");
+        WebElement deleteUser = BrowserDriver.findElement(By.xpath("//tr[td[div[text() = 'UserDeleteThis@mail.com']]]/td/button[text() = 'delete']"));
         deleteUser.click();
         //Click Are u sure to delete?
-        waitForElementByXpath("//div[@class='ReactModal__Content ReactModal__Content--after-open']/button[text() = 'Delete']");
-        WebElement confirmDelete = BrowserDriver.findElement(By.xpath("//div[@class='ReactModal__Content ReactModal__Content--after-open']/button[text() = 'Delete']"));
+        waitForElementByXpath("//div[@class='ReactModal__Content ReactModal__Content--after-open']//button[@id='delete-user']");
+        WebElement confirmDelete = BrowserDriver.findElement(By.xpath("//div[@class='ReactModal__Content ReactModal__Content--after-open']//button[@id='delete-user']"));
         confirmDelete.click();
 
+
+
+    }
+
+    static public String DeleteUserValidationMessage(){
+        waitForEelementByXpathVisibility("//p[@class='text-danger warning-text'][text()='Email already in use']");
+        String  errorMsg = BrowserDriver.findElement(By.xpath("//p[@class='text-danger warning-text'][text()='Email already in use']")).getText();
+        return  errorMsg;
+    }
+
+    static public String UserDisabledErrorMessage(){
+        waitForEelementByXpathVisibility("//p[@class='text-danger'][text()='user is disabled']");
+        String errorMsg = BrowserDriver.findElement(By.xpath("//p[@class='text-danger'][text()='user is disabled']")).getText();
+        return errorMsg;
+    }
+
+    static public String userEmailInvalidMessage(){
+        waitForEelementByXpathVisibility("//p[text()='Invalid email address']");
+        String errorMsg = BrowserDriver.findElement(By.xpath("//p[text()='Invalid email address']")).getText();
+        return errorMsg;
+    }
+
+    static public String userInvalidEmailOrPassword(){
+        waitForEelementByXpathVisibility("//p[text()='Invalid email or password']");
+        String errorMsg = BrowserDriver.findElement(By.xpath("//p[text()='Invalid email or password']")).getText();
+        return errorMsg;
+    }
+
+    static public String userWrongEmailOrPassword(){
+        waitForEelementByXpathVisibility("//p[text()='Bad email or password']");
+        String errorMsg = BrowserDriver.findElement(By.xpath("//p[text()='Bad email or password']")).getText();
+        return errorMsg;
     }
 
 
