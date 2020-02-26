@@ -18,10 +18,13 @@ public class SeleniumUserAddForm {
     // Testuojama user add su tuo paciu el.pastu.
     @Test(priority = 2)
     public void testUserAddWithAlreadyRegisteredEmail(){
+        String errorMsg = "Email already in use";
         Selenium.OpenNewTab(1, "http://developdashboard.azurewebsites.net");
         Selenium.AddNewUser("login@mail.com","tester","testuotojas","aktyvus","aktyvus");
-        Assert.assertEquals(Selenium.DeleteUserValidationMessage(),"Email already in use");
+        Assert.assertEquals(Selenium.DeleteUserValidationMessage(),errorMsg);
         System.out.println(Selenium.DeleteUserValidationMessage());
+
+
     }
 
 /*

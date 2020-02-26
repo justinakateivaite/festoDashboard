@@ -236,9 +236,12 @@ public class Selenium {
         waitForElementByXpath("//div[@class='ReactModal__Content ReactModal__Content--after-open']//button[@id='delete-user']");
         WebElement confirmDelete = BrowserDriver.findElement(By.xpath("//div[@class='ReactModal__Content ReactModal__Content--after-open']//button[@id='delete-user']"));
         confirmDelete.click();
+    }
 
-
-
+    static public String javascriptError(){
+        waitForEelementByXpathVisibility("//div[@style='font-size: 2em; font-family: sans-serif; color: rgb(206, 17, 38); white-space: pre-wrap; margin: 0px 2rem 0.75rem 0px; flex: 0 0 auto; max-height: 50%; overflow: auto;']");
+    String errorMsg = BrowserDriver.findElement(By.xpath("//div[@style='font-size: 2em; font-family: sans-serif; color: rgb(206, 17, 38); white-space: pre-wrap; margin: 0px 2rem 0.75rem 0px; flex: 0 0 auto; max-height: 50%; overflow: auto;']")).getText();
+    return errorMsg;
     }
 
     static public String DeleteUserValidationMessage(){

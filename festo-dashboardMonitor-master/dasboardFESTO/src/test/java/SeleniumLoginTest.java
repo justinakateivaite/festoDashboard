@@ -28,7 +28,7 @@ public class SeleniumLoginTest {
         Selenium.OpenNewTab(1,"http://developdashboard.azurewebsites.net/login");
        // Selenium.OpenNewTab(1,"http://dashboardfront.azurewebsites.net/login");
         Selenium.MonitoringDashboardLogin("login@mail.com","123456");
-        Assert.assertEquals(Selenium.userInvalidEmailOrPassword(),"Invalid email or password");
+        Assert.assertEquals(Selenium.userInvalidEmailOrPassword(),"Invalid email or password","Missing Validation message");
         System.out.println(Selenium.userInvalidEmailOrPassword());
     }
     //Testuojama login su neegzistuojanciu naudotoju
@@ -37,7 +37,7 @@ public class SeleniumLoginTest {
        Selenium.OpenNewTab(2,"http://developdashboard.azurewebsites.net/login");
        // Selenium.OpenNewTab(2,"http://dashboardfront.azurewebsites.net/login");
         Selenium.MonitoringDashboardLogin("as@as223.lt","123456789");
-        Assert.assertEquals(Selenium.userWrongEmailOrPassword(),"Invalid email or password");
+        Assert.assertEquals(Selenium.userWrongEmailOrPassword(),"Invalid email or password","Missing Validation message");
         System.out.println(Selenium.userWrongEmailOrPassword());
     }
     //Testuojama nurodant netinkama email formata
@@ -46,7 +46,7 @@ public class SeleniumLoginTest {
         Selenium.OpenNewTab(3,"http://developdashboard.azurewebsites.net/login");
        // Selenium.OpenNewTab(3,"http://dashboardfront.azurewebsites.net/login");
         Selenium.MonitoringDashboardLogin("loginmail","asdasd");
-        Assert.assertEquals(Selenium.userEmailInvalidMessage(),"Invalid email address");
+        Assert.assertEquals(Selenium.userEmailInvalidMessage(),"Invalid email address","Missing Validation message");
         System.out.println(Selenium.userEmailInvalidMessage());
 
     }
@@ -56,7 +56,7 @@ public class SeleniumLoginTest {
         Selenium.OpenNewTab(4,"http://developdashboard.azurewebsites.net/login");
        // Selenium.OpenNewTab(4,"http://dashboardfront.azurewebsites.net/login");
         Selenium.MonitoringDashboardLogin("test@.com","asdasd");
-        Assert.assertEquals(Selenium.userEmailInvalidMessage(),"Invalid email address");
+        Assert.assertEquals(Selenium.userEmailInvalidMessage(),"Invalid email address","Missing Validation message");
         System.out.println(Selenium.userEmailInvalidMessage());
 
     }
@@ -67,7 +67,7 @@ public class SeleniumLoginTest {
         Selenium.OpenNewTab(5,"http://developdashboard.azurewebsites.net/login");
        // Selenium.OpenNewTab(5,"http://dashboardfront.azurewebsites.net/login");
         Selenium.MonitoringDashboardLogin("test@","asdasd");
-        Assert.assertEquals(Selenium.userEmailInvalidMessage(),"Invalid email address");
+        Assert.assertEquals(Selenium.userEmailInvalidMessage(),"Invalid email address","Missing Validation message");
         System.out.println(Selenium.userEmailInvalidMessage());
 
     }
@@ -86,7 +86,7 @@ public class SeleniumLoginTest {
        Selenium.OpenNewTab(7,"http://developdashboard.azurewebsites.net/login");
         //Selenium.OpenNewTab(7,"http://dashboardfront.azurewebsites.net/login");
         Selenium.MonitoringDashboardLogin("login2@mail.com","asd123");
-        Assert.assertEquals(Selenium.UserDisabledErrorMessage(),"user is disabled");
+        Assert.assertEquals(Selenium.UserDisabledErrorMessage(),"user is disabled","Missing Validation message");
         System.out.println(Selenium.DeleteUserValidationMessage());
     }
 

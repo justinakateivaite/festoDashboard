@@ -16,17 +16,25 @@ public class SeleniumUserEditForm {
         Selenium.MonitoringDashboardLogin("login@mail.com","asd123");
     }
 
+
     @Test(priority = 1)
-    public void testEditUserNameSurnameFields(){
-        Selenium.OpenNewTab(1,"http://developdashboard.azurewebsites.net/users");
-        Selenium.EditExistingUser("SeleniumNameTesting","SeleniumSurnameTesting","testing123","testing123");
-    }
-    @Test(priority = 2)
     public void testEditUserNameSurnameLithuanianLetters(){
-        Selenium.OpenNewTab(2,"http://developdashboard.azurewebsites.net/users");
+        String errorMsg = "Only latin letters";
+        Selenium.OpenNewTab(1,"http://developdashboard.azurewebsites.net/users");
         Selenium.EditExistingUser("Ričardas","Mačiulis","testing123","testing123");
         Assert.assertEquals(Selenium.LatinLetters(),"Only latin letters");
         System.out.println(Selenium.LatinLetters());
+        if(Selenium.LatinLetters().equals(errorMsg)){
+            Assert.fail();
+        }
+    }
+
+    @Test(priority = 2)
+    public void testEditUserNameSurnameFields(){
+        Selenium.OpenNewTab(2,"http://developdashboard.azurewebsites.net/users");
+        Selenium.EditExistingUser("SeleniumNameTesting","SeleniumSurnameTesting","testing123","testing123");
+        System.out.println(Selenium.javascriptError());
+
     }
 
 
