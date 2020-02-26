@@ -1,4 +1,5 @@
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -22,25 +23,30 @@ public class SeleniumUsersTest {
 @Test(priority = 1)
 public void testUserAddPositiveValues(){
     Selenium.MonitoringDashboardLogin("login@mail.com","asd123");
-    Selenium.AddNewUser("UserDeleteThis@mail.com","Dovydas","Tamulis","asd123","asd123");
+    Selenium.AddNewUser("test@aktyvus.lt","Jonas","Jonaitis","aktyvus","aktyvus");
 }
 
-// Testuojama user add su tuo paciu el.pastu.
+
 @Test(priority = 2)
-public void testUserAddWithAlreadyRegisteredEmail(){
-        Selenium.OpenNewTab(1, "http://developdashboard.azurewebsites.net");
-        Selenium.AddNewUser("UserDeleteThis@mail.com","Dovydas","Tamulis","asd123","asd123");
-        Assert.assertEquals(Selenium.DeleteUserValidationMessage(),"Email already in use");
-        System.out.println(Selenium.DeleteUserValidationMessage());
-    }
-
-
+public void testEditRecentlyCreatedUser(){
+        Selenium.OpenNewTab(1,"http://developdashboard.azurewebsites.net/users");
+        Selenium.EditRecentlyCreatedUser("NameTest","SurnameTest","testing123","testing123");
+}
 //Testuojam user delete
+
 @Test(priority = 3)
 public void testUserDelete(){
     Selenium.OpenNewTab(2,"http://developdashboard.azurewebsites.net");
     Selenium.DeleteUser();
+    Selenium.NavigateLogout();
 
 }
+
+/*
+@AfterTest
+    public void closeTest(){
+        Selenium.quit();
+}
+ */
 
 }

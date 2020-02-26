@@ -37,7 +37,7 @@ public class SeleniumLoginTest {
        Selenium.OpenNewTab(2,"http://developdashboard.azurewebsites.net/login");
        // Selenium.OpenNewTab(2,"http://dashboardfront.azurewebsites.net/login");
         Selenium.MonitoringDashboardLogin("as@as223.lt","123456789");
-        Assert.assertEquals(Selenium.userWrongEmailOrPassword(),"Bad email or password");
+        Assert.assertEquals(Selenium.userWrongEmailOrPassword(),"Invalid email or password");
         System.out.println(Selenium.userWrongEmailOrPassword());
     }
     //Testuojama nurodant netinkama email formata
