@@ -15,8 +15,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Selenium {
     static WebDriver BrowserDriver;
-    static String oldAddUserButtonXpath = "//p[@class='text-right pt-3']//button[@class='link-button']";
-
 
 
     public static void main(String[] args){
@@ -24,19 +22,21 @@ public class Selenium {
         System.out.println("Selenium");
 
     }
-
+/*
     static public void setupChrome(){
-       // System.setProperty("webdriver.chrome.driver","drivers\\chromedriver.exe");
         WebDriverManager.chromedriver().setup();
         BrowserDriver = new ChromeDriver();
         BrowserDriver.get("http://developdashboard.azurewebsites.net/login");
     }
+    */
+
+
 
     static public void setupFireFox(){
             WebDriverManager.firefoxdriver().setup();
             BrowserDriver = new FirefoxDriver();
-            BrowserDriver.get("http://developdashboard.azurewebsites.net/login");
-           // BrowserDriver.get("http://dashboardfront.azurewebsites.net/login");
+            BrowserDriver.get("http://developdashboard3.azurewebsites.net/login");
+
     }
 
 
@@ -146,8 +146,8 @@ public class Selenium {
     static public void EditRecentlyCreatedUser(String name,String surname, String password, String repeatPassword){
         //Click Edit recently created user
         waitForElementByXpath("//tr[td[div[text() = \"test@aktyvus.lt\"]]]/td/button[text() = 'edit']");
-        WebElement deleteUser = BrowserDriver.findElement(By.xpath("//tr[td[div[text() = 'test@aktyvus.lt']]]/td/button[text() = 'edit']"));
-        deleteUser.click();
+        WebElement editUser = BrowserDriver.findElement(By.xpath("//tr[td[div[text() = 'test@aktyvus.lt']]]/td/button[text() = 'edit']"));
+        editUser.click();
 
 
         //Enter name
@@ -251,31 +251,31 @@ public class Selenium {
     }
 
     static public String UserDisabledErrorMessage(){
-        waitForEelementByXpathVisibility("//p[@class='text-danger'][text()='user is disabled']");
-        String errorMsg = BrowserDriver.findElement(By.xpath("//p[@class='text-danger'][text()='user is disabled']")).getText();
+        waitForEelementByXpathVisibility("//p[span[text()='User disabled']]");
+        String errorMsg = BrowserDriver.findElement(By.xpath("//p[span[text()='User disabled']]")).getText();
         return errorMsg;
     }
 
-    static public String userEmailInvalidMessage(){
-        waitForEelementByXpathVisibility("//p[text()='Invalid email address']");
-        String errorMsg = BrowserDriver.findElement(By.xpath("//p[text()='Invalid email address']")).getText();
+    static public String userEmailIncorrectFormat(){
+        waitForEelementByXpathVisibility("//p[@id='er']");
+        String errorMsg = BrowserDriver.findElement(By.xpath("//p[@id='er']")).getText();
         return errorMsg;
     }
 
-    static public String userInvalidEmailOrPassword(){
-        waitForEelementByXpathVisibility("//p[text()='Invalid email or password']");
-        String errorMsg = BrowserDriver.findElement(By.xpath("//p[text()='Invalid email or password']")).getText();
+    static public String userIncorrectEmailOrPassword(){
+        waitForEelementByXpathVisibility("//p[span[text()='Incorrect email or password']]");
+        String errorMsg = BrowserDriver.findElement(By.xpath("//p[span[text()='Incorrect email or password']]")).getText();
         return errorMsg;
     }
 
     static public String userWrongEmailOrPassword(){
-        waitForEelementByXpathVisibility("//p[text()='Bad email or password']");
-        String errorMsg = BrowserDriver.findElement(By.xpath("//p[text()='Invalid email or password']")).getText();
+        waitForEelementByXpathVisibility("//p[text()='Incorrect email or password']");
+        String errorMsg = BrowserDriver.findElement(By.xpath("//p[text()='Incorrect email or password']")).getText();
         return errorMsg;
     }
     static public String LatinLetters(){
-        waitForEelementByXpathVisibility("//p[text()='Only latin letters']");
-        String errorMsg = BrowserDriver.findElement(By.xpath("//p[text()='Only latin letters']")).getText();
+        waitForEelementByXpathVisibility("//p[text()='Only latin letters and numbers']");
+        String errorMsg = BrowserDriver.findElement(By.xpath("//p[text()='Only latin letters and numbers']")).getText();
         return errorMsg;
     }
 

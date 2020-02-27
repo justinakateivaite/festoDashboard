@@ -3,12 +3,15 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class SeleniumUserAddForm {
-    /*
+/*
    @BeforeTest
    public void testSetupChrome(){
        Selenium.setupChrome();
+       Selenium.MonitoringDashboardLogin("login@mail.com","asd123");
    }
-*/
+
+ */
+
     @BeforeTest
     public void testSetupFirefox(){
         Selenium.setupFireFox();
@@ -19,7 +22,7 @@ public class SeleniumUserAddForm {
     @Test(priority = 2)
     public void testUserAddWithAlreadyRegisteredEmail(){
         String errorMsg = "Email already in use";
-        Selenium.OpenNewTab(1, "http://developdashboard.azurewebsites.net");
+        Selenium.OpenNewTab(1, "http://developdashboard3.azurewebsites.net");
         Selenium.AddNewUser("login@mail.com","tester","testuotojas","aktyvus","aktyvus");
         Assert.assertEquals(Selenium.DeleteUserValidationMessage(),errorMsg);
         System.out.println(Selenium.DeleteUserValidationMessage());
