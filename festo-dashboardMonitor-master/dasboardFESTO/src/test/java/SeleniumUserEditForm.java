@@ -26,10 +26,7 @@ public class SeleniumUserEditForm {
         Assert.assertEquals(Selenium.LatinLetters(), "Only latin letters and numbers");
         System.out.println(Selenium.LatinLetters());
 
-        if(Selenium.LatinLetters().equals(errorMsg)){
-            Assert.fail();
-        }
-
+     
 
     }
 

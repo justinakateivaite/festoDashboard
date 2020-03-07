@@ -91,6 +91,7 @@ public class Selenium {
 
 
     static public void AddNewUser(String email, String name, String surname, String password, String repeatPassword){
+
         //Click burger
         waitForElementByClassName("menuIcon");
         WebElement burgerMenu = BrowserDriver.findElement(By.className("menuIcon"));
@@ -100,10 +101,10 @@ public class Selenium {
         waitForElementByXpath("//a[@href='/users']//button[@class=\"buttonDesign\"]");
         WebElement users = BrowserDriver.findElement(By.xpath("//a[@href='/users']//button[@class=\"buttonDesign\"]"));
         users.click();
-
+        BrowserDriver.navigate().refresh();
         //Click add new user
-        waitForElementByXpath("//div[@class='addButton text-right']/button[text() = 'Add new user']");
-        WebElement addUserButton = BrowserDriver.findElement((By.xpath("//div[@class='addButton text-right']/button[text() = 'Add new user']")));
+        waitForElementByXpath("//div[@class='addButton d-flex justify-content-between']/button[text() = 'Add new user']");
+        WebElement addUserButton = BrowserDriver.findElement((By.xpath("//div[@class='addButton d-flex justify-content-between']/button[text() = 'Add new user']")));
         addUserButton.click();
 
         //Enter email
@@ -145,8 +146,11 @@ public class Selenium {
 
     static public void EditRecentlyCreatedUser(String name,String surname, String password, String repeatPassword){
         //Click Edit recently created user
+    	JavascriptExecutor js = (JavascriptExecutor) BrowserDriver;
         waitForElementByXpath("//tr[td[div[text() = \"test@aktyvus.lt\"]]]/td/button[text() = 'edit']");
         WebElement editUser = BrowserDriver.findElement(By.xpath("//tr[td[div[text() = 'test@aktyvus.lt']]]/td/button[text() = 'edit']"));
+      //This will scroll the page till the element is found		
+        js.executeScript("arguments[0].scrollIntoView();", editUser);
         editUser.click();
 
 
@@ -227,10 +231,13 @@ public class Selenium {
         //Click users
         waitForElementByXpath("//a[@href='/users']//button[@class=\"buttonDesign\"]");
         WebElement users = BrowserDriver.findElement(By.xpath("//a[@href='/users']//button[@class=\"buttonDesign\"]"));
+      
         users.click();
         //Click delete
+        JavascriptExecutor js = (JavascriptExecutor) BrowserDriver;
         waitForElementByXpath("//tr[td[div[text() = 'test@aktyvus.lt']]]/td/button[text() = 'delete']");
         WebElement deleteUser = BrowserDriver.findElement(By.xpath("//tr[td[div[text() = 'test@aktyvus.lt']]]/td/button[text() = 'delete']"));
+        js.executeScript("arguments[0].scrollIntoView();", deleteUser);
         deleteUser.click();
         //Click Are u sure to delete?
         waitForElementByXpath("//div[@class='ReactModal__Content ReactModal__Content--after-open']//button[@id='delete-user']");
