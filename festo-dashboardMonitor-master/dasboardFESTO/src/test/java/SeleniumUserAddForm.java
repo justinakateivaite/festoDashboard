@@ -3,20 +3,12 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class SeleniumUserAddForm {
-/*
    @BeforeTest
    public void testSetupChrome(){
-       Selenium.setupChrome();
-       Selenium.MonitoringDashboardLogin("login@mail.com","asd123");
+       Selenium.setupChromeAndNavigateToLogin();
+       Selenium.loginWithCredentials("login@mail.com","asd123");
    }
 
- */
-
-    @BeforeTest
-    public void testSetupFirefox(){
-        Selenium.setupFireFox();
-        Selenium.MonitoringDashboardLogin("login@mail.com","asd123");
-    }
 
     // Testuojama user add su tuo paciu el.pastu.
     @Test(priority = 2)

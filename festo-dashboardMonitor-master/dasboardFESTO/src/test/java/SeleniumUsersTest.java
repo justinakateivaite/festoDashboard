@@ -1,29 +1,19 @@
-import org.testng.Assert;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class SeleniumUsersTest {
 
 
-/*
     @BeforeTest
     public void testSetupChrome(){
-        Selenium.setupChrome();
+        Selenium.setupChromeAndNavigateToLogin();
     }
-*/
-
-    @BeforeTest
-    public void testSetupFirefox(){
-        Selenium.setupFireFox();
-    }
-
 
 
 // Testuojama user add
 @Test(priority = 1)
 public void testUserAddPositiveValues(){
-    Selenium.MonitoringDashboardLogin("login@mail.com","asd123");
+    Selenium.loginWithCredentials("login@mail.com","asd123");
     Selenium.AddNewUser("test@aktyvus.lt","Jonas","Jonaitis","aktyvus","aktyvus");
 }
 

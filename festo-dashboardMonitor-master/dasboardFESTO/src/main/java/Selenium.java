@@ -1,48 +1,46 @@
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.apache.http.util.Asserts;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
 
 public class Selenium {
     static WebDriver BrowserDriver;
 
-
     public static void main(String[] args){
-
         System.out.println("Selenium");
-
     }
-/*
+
     static public void setupChrome(){
-        WebDriverManager.chromedriver().setup();
+        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
         BrowserDriver = new ChromeDriver();
-        BrowserDriver.get("http://developdashboard.azurewebsites.net/login");
-    }
-    */
-
-
-
-    static public void setupFireFox(){
-            WebDriverManager.firefoxdriver().setup();
-            BrowserDriver = new FirefoxDriver();
-            BrowserDriver.get("http://developdashboard3.azurewebsites.net/login");
-
     }
 
+    static public void setupChromeAndNavigateToLogin(){
+        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
+        BrowserDriver = new ChromeDriver();
+        BrowserDriver.get("https://developdashboard3.azurewebsites.net/login");
+    }
 
+    static public void navigateToLogin() {
+        BrowserDriver.get("https://developdashboard3.azurewebsites.net/login");
+    }
+
+    static public void navigateToMaintainingList() {
+        BrowserDriver.get("https://developdashboard3.azurewebsites.net/maintaining_list");
+    }
+
+    static public void logout() {
+        BrowserDriver.get("https://developdashboard3.azurewebsites.net/logout");
+    }
 
     //Login formos uzpildymas
-    static public void MonitoringDashboardLogin(String email, String password) {
+    static public void loginWithCredentials(String email, String password) {
 
         //Enter email
         waitForElementById("email");
@@ -246,42 +244,42 @@ public class Selenium {
     }
 
     static public String javascriptError(){
-        waitForEelementByXpathVisibility("//div[@style='font-size: 2em; font-family: sans-serif; color: rgb(206, 17, 38); white-space: pre-wrap; margin: 0px 2rem 0.75rem 0px; flex: 0 0 auto; max-height: 50%; overflow: auto;']");
+        waitForElementByXpathVisibility("//div[@style='font-size: 2em; font-family: sans-serif; color: rgb(206, 17, 38); white-space: pre-wrap; margin: 0px 2rem 0.75rem 0px; flex: 0 0 auto; max-height: 50%; overflow: auto;']");
     String errorMsg = BrowserDriver.findElement(By.xpath("//div[@style='font-size: 2em; font-family: sans-serif; color: rgb(206, 17, 38); white-space: pre-wrap; margin: 0px 2rem 0.75rem 0px; flex: 0 0 auto; max-height: 50%; overflow: auto;']")).getText();
     return errorMsg;
     }
 
     static public String DeleteUserValidationMessage(){
-        waitForEelementByXpathVisibility("//p[@class='text-danger warning-text'][text()='Email already in use']");
+        waitForElementByXpathVisibility("//p[@class='text-danger warning-text'][text()='Email already in use']");
         String  errorMsg = BrowserDriver.findElement(By.xpath("//p[@class='text-danger warning-text'][text()='Email already in use']")).getText();
         return  errorMsg;
     }
 
     static public String UserDisabledErrorMessage(){
-        waitForEelementByXpathVisibility("//p[span[text()='User disabled']]");
+        waitForElementByXpathVisibility("//p[span[text()='User disabled']]");
         String errorMsg = BrowserDriver.findElement(By.xpath("//p[span[text()='User disabled']]")).getText();
         return errorMsg;
     }
 
     static public String userEmailIncorrectFormat(){
-        waitForEelementByXpathVisibility("//p[@id='er']");
+        waitForElementByXpathVisibility("//p[@id='er']");
         String errorMsg = BrowserDriver.findElement(By.xpath("//p[@id='er']")).getText();
         return errorMsg;
     }
 
     static public String userIncorrectEmailOrPassword(){
-        waitForEelementByXpathVisibility("//p[span[text()='Incorrect email or password']]");
+        waitForElementByXpathVisibility("//p[span[text()='Incorrect email or password']]");
         String errorMsg = BrowserDriver.findElement(By.xpath("//p[span[text()='Incorrect email or password']]")).getText();
         return errorMsg;
     }
 
     static public String userWrongEmailOrPassword(){
-        waitForEelementByXpathVisibility("//p[text()='Incorrect email or password']");
+        waitForElementByXpathVisibility("//p[text()='Incorrect email or password']");
         String errorMsg = BrowserDriver.findElement(By.xpath("//p[text()='Incorrect email or password']")).getText();
         return errorMsg;
     }
     static public String LatinLetters(){
-        waitForEelementByXpathVisibility("//p[text()='Only latin letters and numbers']");
+        waitForElementByXpathVisibility("//p[text()='Only latin letters and numbers']");
         String errorMsg = BrowserDriver.findElement(By.xpath("//p[text()='Only latin letters and numbers']")).getText();
         return errorMsg;
     }
@@ -292,31 +290,101 @@ public class Selenium {
 
 
     //ElementsToBeClicked
-    static private void waitForElementByName(String name){
+    static void waitForElementByName(String name){
         WebDriverWait waitas = new WebDriverWait(BrowserDriver, 2);
         waitas.until(ExpectedConditions.elementToBeClickable(By.name(name)));
     }
-    static private void waitForElementByClassName(String name){
+
+    static void waitForElementByClassName(String name){
         WebDriverWait waitas = new WebDriverWait(BrowserDriver, 2);
         waitas.until(ExpectedConditions.elementToBeClickable(By.className(name)));
     }
-    static private void waitForElementById(String name){
+
+    static void waitForElementById(String name){
         WebDriverWait waitas = new WebDriverWait(BrowserDriver, 2);
         waitas.until(ExpectedConditions.elementToBeClickable(By.id(name)));
     }
-    static private void waitForElementByXpath(String name){
-        WebDriverWait waitas = new WebDriverWait(BrowserDriver,2);
+
+    static void waitForElementByXpath(String name){
+        WebDriverWait waitas = new WebDriverWait(BrowserDriver,5);
         waitas.until(ExpectedConditions.elementToBeClickable(By.xpath(name)));
     }
 
-    static private void waitForEelementByXpathVisibility(String name){
+    static void waitForElementByXpathVisibility(String name){
         WebDriverWait wait = new WebDriverWait(BrowserDriver,2);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(name)));
     }
 
-    static private void waitForElementPresenceByClass(String name ){
+    static void waitForElementPresenceByClass(String name){
         WebDriverWait wait = new WebDriverWait(BrowserDriver,10);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className(name)));
+    }
+
+    static void waitForElementPresenceByXpath(String xpath){
+        WebDriverWait wait = new WebDriverWait(BrowserDriver,10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+    }
+
+    static void fillTextInputByXpath(String elementXpath, String text) {
+        waitForElementByXpath(elementXpath);
+        WebElement input = BrowserDriver.findElement(By.xpath(elementXpath));
+        input.sendKeys(text);
+    }
+
+    static void fillTextInputByName(String elementName, String text) {
+        waitForElementByName(elementName);
+        WebElement input = BrowserDriver.findElement(By.name(elementName));
+        input.sendKeys(text);
+    }
+
+    static void selectOptionByXpath(String elementXpath, int index) {
+        waitForElementByXpath(elementXpath);
+        WebElement element = BrowserDriver.findElement(By.xpath(elementXpath));
+        Select select = new Select(element);
+        select.selectByIndex(index);
+    }
+
+    static void selectOptionByName(String elementName, int index) {
+        waitForElementByName(elementName);
+        WebElement element = BrowserDriver.findElement(By.name(elementName));
+        Select select = new Select(element);
+        select.selectByIndex(index);
+    }
+
+    static void markCheckboxByXpath(String elementXpath, boolean isSelected) {
+        waitForElementByXpath(elementXpath);
+        WebElement element = BrowserDriver.findElement(By.xpath(elementXpath));
+        if (element.isSelected() != isSelected) {
+            element.click();
+        }
+    }
+
+    static void markCheckboxByName(String elementName, boolean isSelected) {
+        waitForElementByName(elementName);
+        WebElement element = BrowserDriver.findElement(By.name(elementName));
+        if (element.isSelected() != isSelected) {
+            element.click();
+        }
+    }
+
+    static void clickButtonByXpath(String elementXpath) {
+        waitForElementPresenceByXpath(elementXpath);
+        WebElement element = BrowserDriver.findElement(By.xpath(elementXpath));
+        element.click();
+    }
+
+    static void clickButtonByName(String elementName) {
+        waitForElementByName(elementName);
+        WebElement element = BrowserDriver.findElement(By.name(elementName));
+        element.click();
+    }
+
+    static void scrollToElementByXpath(String elementXpath) {
+        waitForElementByXpath(elementXpath);
+        WebElement element = BrowserDriver.findElement(By.xpath(elementXpath));
+        Actions actions = new Actions(BrowserDriver);
+        actions.moveToElement(element);
+        actions.perform();
     }
 
     public static void close(){
